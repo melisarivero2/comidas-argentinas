@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta Gastronómica Argentina</title>
+    <style>
+        :root {
+            --celeste: #0284c7;
+            --celeste-claro: #e0f2fe;
+            --dorado: #f59e0b;
+            --oscuro: #0f172a;
+            --gris-fondo: #f8fafc;
+        }
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--gris-fondo);
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        /* Barra de navegación */
+        nav {
+            background-color: var(--oscuro);
+            padding: 0.8rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        nav a:hover {
+            background-color: var(--celeste);
+        }
+        /* Encabezado */
+        header {
+            background: linear-gradient(135deg, #0284c7, #0369a1, #1e3a8a);
+            color: #ffffff;
+            padding: 4rem 1.5rem;
+            text-align: center;
+            border-bottom: 6px solid var(--dorado);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: -0.5px;
+        }
+        header p {
+            margin: 0.8rem auto 0;
+            font-size: 1.2rem;
+            max-width: 650px;
+            opacity: 0.95;
+        }
+        main {
+            max-width: 1050px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--oscuro);
+            margin: 3rem 0 1.5rem;
+            position: relative;
+        }
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            background-color: var(--dorado);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+        /* Grilla de platos */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 1.6rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border-top: 5px solid var(--celeste);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        .card.dulce {
+            border-top-color: var(--dorado);
+        }
+        .tag {
+            display: inline-block;
+            background-color: var(--celeste-claro);
+            color: #0369a1;
+            font-size: 0.78rem;
+            font-weight: bold;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+        }
+        .tag.tag-dulce {
+            background-color: #fef3c7;
+            color: #b45309;
+        }
+        .card h3 {
+            color: var(--oscuro);
+            margin: 0.2rem 0 0.7rem 0;
+            font-size: 1.4rem;
+        }
+        .card ul {
+            padding-left: 1.2rem;
+            color: #334155;
+            margin-bottom: 0;
+        }
+        .card li {
+            margin-bottom: 0.3rem;
+        }
+        /* Sección de Regiones */
+        .regiones-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .region-item {
+            background: #ffffff;
+            padding: 1.3rem;
+            border-radius: 12px;
+            border-left: 5px solid var(--dorado);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .region-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--celeste);
+            font-size: 1.15rem;
+        }
+        /* Curiosidades */
+        .curiosidades {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #f8fafc;
+            border-radius: 16px;
+            padding: 2.2rem;
+            margin-top: 3rem;
+        }
+        .curiosidades h2 {
+            color: #38bdf8;
+            margin-top: 0;
+        }
+        .curiosidades-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .dato {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 1.2rem;
+            border-radius: 10px;
+        }
+        .dato strong {
+            color: var(--dorado);
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.05rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 3.5rem;
+            background-color: var(--oscuro);
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            border-top: 4px solid var(--celeste);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#salados">Platos Salados</a>
+        <a href="#dulces">Dulces y Mate</a>
+        <a href="#regiones">Mapa Regional</a>
+        <a href="#curiosidades">Curiosidades</a>
+    </nav>
+
+    <header>
+        <h1>Sabores de Argentina</h1>
+        <p>Un recorrido completo por las recetas, tradiciones y secretos de la mesa nacional</p>
+    </header>
+
+    <main>
+        <h2 id="salados" class="section-title">Clásicos Salados</h2>
+        <div class="grid">
+            <section class="card">
+                <span class="tag">Ritual Nacional</span>
+                <h3>1. El Asado</h3>
+                <p>El emblema de los domingos en familia y con amigos. Se cocina despacio sobre brasas de leña o carbón.</p>
+                <ul>
+                    <li><strong>Achuras y entrada:</strong> Chorizo, morcilla, chinchulines y provoleta.</li>
+                    <li><strong>Cortes estrella:</strong> Tira de asado, vacío, matambre y entraña.</li>
+                    <li><strong>Salsas:</strong> Chimichurri y salsa criolla.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <span class="tag">Receta Federal</span>
+                <h3>2. Empanadas</h3>
+                <p>Cada región defiende su propia receta y su repulgue tradicional, ya sean al horno de barro o fritas.</p>
+                <ul>
+                    <li><strong>Cuyanas:</strong> Jugosas, con abundante cebolla, huevo duro y aceituna.</li>
+                    <li><strong>Salteñas:</strong> Pequeñas, con carne cortada a cuchillo y cubitos de papa.</li>
+                    <li><strong>Tucumanas:</strong> Hechas con matambre hervido y un toque de limón.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <span class="tag">Favorito Popular</span>
+                <h3>3. Milanesa Napolitana</h3>
+                <p>Creada en un bodegón de Buenos Aires en los años 50, es uno de los platos cotidianos más queridos.</p>
+                <ul>
+                    <li><strong>Preparación:</strong> Carne empanada cubierta con salsa de tomate, jamón y queso muzzarella gratinado.</li>
+                    <li><strong>Guarnición infaltable:</strong> Papas fritas o puré de papas cremoso.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <span class="tag">Fechas Patrias</span>
+                <h3>4. Locro y Humita</h3>
+                <p>Platos de raíz andina que brillan en invierno y durante el 25 de Mayo o el 9 de Julio.</p>
+                <ul>
+                    <li><strong>Locro:</strong> Guiso espeso de maíz blanco, porotos, zapallo, chorizo colorado y panceta.</li>
+                    <li><strong>Humita en chala:</strong> Pasta de choclo fresco rallado con cebolla, especias y queso envuelta en hojas de maíz.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <span class="tag">Comida al Paso</span>
+                <h3>5. Choripán</h3>
+                <p>El sándwich callejero por excelencia y la antesala infaltable de cualquier asado.</p>
+                <ul>
+                    <li><strong>El secreto:</strong> Chorizo parrillero abierto en corte "mariposa" dentro de pan francés crocante.</li>
+                    <li><strong>Aderezo:</strong> Chimichurri casero con perejil, ajo, orégano, ají molido y vinagre.</li>
+                </ul>
+            </section>
+
+            <section class="card">
+                <span class="tag">Tradición Cuyana</span>
+                <h3>6. Chivito y Carne a la Olla</h3>
+                <p>En la región de Cuyo destacan las cocciones lentas a las brasas o al disco de arado.</p>
+                <ul>
+                    <li><strong>Chivito a las llamas:</strong> Asado lentamente al fuego de leña con salmuera aromática.</li>
+                    <li><strong>Chanfaina y carne a la masa:</strong> Especialidades históricas con gran arraigo regional.</li>
+                </ul>
+            </section>
+        </div>
+
+        <h2 id="dulces" class="section-title">Dulces, Merienda y Mate</h2>
+        <div class="grid">
+            <section class="card dulce">
+                <span class="tag tag-dulce">Compañero Diario</span>
+                <h3>7. El Mate</h3>
+                <p>La infusión nacional de yerba mate que acompaña el estudio, el trabajo y las charlas de tarde.</p>
+                <ul>
+                    <li><strong>Formas de tomarlo:</strong> Amargo, dulce, con peperina, cedrón o cascaritas de naranja.</li>
+                    <li><strong>Regla de oro:</strong> El agua se calienta entre 75 °C y 80 °C sin dejar que hierva.</li>
+                </ul>
+            </section>
+
+            <section class="card dulce">
+                <span class="tag tag-dulce">Ícono Dulce</span>
+                <h3>8. Alfajores y Dulce de Leche</h3>
+                <p>Argentina consume más de 10 millones de alfajores por día en todas sus variedades regionales.</p>
+                <ul>
+                    <li><strong>De chocolate:</strong> Rellenos de abundante dulce de leche con baño de chocolate amargo o blanco.</li>
+                    <li><strong>De maicena:</strong> Tapas suaves que se deshacen, con borde de coco rallado.</li>
+                    <li><strong>Regionales:</strong> Con masa fina y rellenos de dulce de membrillo, alcayota o leche.</li>
+                </ul>
+            </section>
+
+            <section class="card dulce">
+                <span class="tag tag-dulce">Hora del Mate</span>
+                <h3>9. Pastelitos y Tortas Fritas</h3>
+                <p>Los acompañantes clásicos para una tarde de lluvia o una fiesta patria.</p>
+                <ul>
+                    <li><strong>Pastelitos criollos:</strong> Masa hojaldrada bien crocante rellena de dulce de membrillo o batata.</li>
+                    <li><strong>Tortas fritas y sopaipillas:</strong> Masa dorada ideal para espolvorear con azúcar.</li>
+                </ul>
+            </section>
+        </div>
+
+        <h2 id="regiones" class="section-title">Sabores por Región</h2>
+        <div class="regiones-box">
+            <div class="region-item">
+                <h4>Cuyo (San Luis, Mendoza, San Juan)</h4>
+                <p>Chivito a las brasas, empanadas jugosas al horno de barro, carne a la masa, tableta puntana y dulces de membrillo y alcayota.</p>
+            </div>
+            <div class="region-item">
+                <h4>Noroeste (Salta, Jujuy, Tucumán)</h4>
+                <p>Tamales, humita en chala, locro pulsudo, cazuela de llama y quesillo con miel de caña o cayote.</p>
+            </div>
+            <div class="region-item">
+                <h4>Litoral y Mesopotamia</h4>
+                <p>Chipá de almidón de mandioca y queso, pescado de río a la parrilla (pacú, dorado y surubí) y mbejú.</p>
+            </div>
+            <div class="region-item">
+                <h4>Patagonia</h4>
+                <p>Cordero patagónico al asador, trucha ahumada, ciervo, chocolates artesanales y dulces de frutos rojos como rosa mosqueta y calafate.</p>
+            </div>
+        </div>
+
+        <section id="curiosidades" class="curiosidades">
+            <h2>¿Sabías que...? Datos Curiosos</h2>
+            <div class="curiosidades-grid">
+                <div class="dato">
+                    <strong>El origen de la Napolitana</strong>
+                    No viene de Nápoles, Italia. Nació frente al Luna Park en Buenos Aires, en el restaurante "Nápoli", cuando a un cocinero se le pasó de cocción una milanesa y la cubrió con salsa, jamón y queso para salvarla.
+                </div>
+                <div class="dato">
+                    <strong>El significado del repulgue</strong>
+                    El cierre de la empanada no es solo decorativo: cada tipo de repulgue sirve para identificar el relleno (carne, pollo, jamón y queso o humita) antes de abrirla.
+                </div>
+                <div class="dato">
+                    <strong>El ritual del aplauso</strong>
+                    Al terminar de servir todos los cortes en una reunión, es tradición brindar "un aplauso para el asador" en agradecimiento por las horas frente al fuego.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p><strong>Proyecto de Investigación: Gastronomía Argentina</strong></p>
+        <p>Desarrollado en HTML5 y CSS3 — Publicado con GitHub Pages</p>
+    </footer>
+
+</body>
+</html>
